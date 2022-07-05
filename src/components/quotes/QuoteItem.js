@@ -1,18 +1,25 @@
-import classes from './QuoteItem.module.css';
+import { QuoteItemS } from "./QuoteItemStyles";
+
+import { Link, useLocation } from "react-router-dom";
 
 const QuoteItem = (props) => {
+  console.log(props);
+
+  let location = useLocation();
+  console.log(location);
+
   return (
-    <li className={classes.item}>
+    <QuoteItemS>
       <figure>
         <blockquote>
           <p>{props.text}</p>
         </blockquote>
         <figcaption>{props.author}</figcaption>
       </figure>
-      <a className='btn'>
+      <Link to={`${location.pathname}/${props.id}/comments`} className="btn">
         View Fullscreen
-      </a>
-    </li>
+      </Link>
+    </QuoteItemS>
   );
 };
 

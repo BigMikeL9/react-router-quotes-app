@@ -1,11 +1,11 @@
-import classes from './HighlightedQuote.module.css';
+import { Quote } from "./HighlightedQuoteStyles";
 
 const HighlightedQuote = (props) => {
   return (
-    <figure className={classes.quote}>
+    <Quote>
       <p>{props.text}</p>
       <figcaption>{props.author}</figcaption>
-    </figure>
+    </Quote>
   );
 };
 

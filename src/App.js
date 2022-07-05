@@ -2,9 +2,10 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import Header from "./layout/Header/Header";
 import { Main } from "./layout/Main/Main";
-import Quotes from "./pages/Quotes";
-import QuoteDetail from "./pages/QuoteDetail";
-import NewQuote from "./pages/NewQuote";
+import QuotesPage from "./pages/QuotesPage";
+import QuoteDetailPage from "./pages/QuoteDetailPage";
+import NewQuotePage from "./pages/NewQuotePage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -18,13 +19,13 @@ function App() {
           </Route>
 
           <Route path="/quotes" exact>
-            <Quotes />
+            <QuotesPage />
           </Route>
 
           {/* 
 
          🛑✋ 
-         DONT add 'exact' prop when we have a nested Routes. ie: in '<QuoteDetail />' would have a nested Route 👇
+          DONT add 'exact' prop when we have a nested Routes. ie: in '<QuoteDetail />' would have a nested Route 👇
 
           <Route path={`/quotes/${params.quoteId}/comments`} exact>
             <Comments />
@@ -34,11 +35,16 @@ function App() {
             
           */}
           <Route path="/quotes/:quoteId">
-            <QuoteDetail />
+            <QuoteDetailPage />
           </Route>
 
           <Route path="/new-quote" exact>
-            <NewQuote />
+            <NewQuotePage />
+          </Route>
+
+          {/* Fallback Route 👇👇 */}
+          <Route path="*">
+            <NotFoundPage />
           </Route>
         </Switch>
       </Main>
