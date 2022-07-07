@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import QuoteForm from "../components/quotes/QuoteForm";
+import QuoteForm from "../components/quotes/QuoteForm/QuoteForm";
 
 const NewQuotePage = () => {
   const history = useHistory();

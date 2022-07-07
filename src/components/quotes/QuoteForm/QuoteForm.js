@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { Prompt } from "react-router-dom";
 
-import Card from "../UI/Card/Card";
-import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
+import Card from "../../UI/Card/Card";
+import LoadingSpinner from "../../UI/LoadingSpinner/LoadingSpinner";
 
 import {
   Form,
@@ -10,7 +10,7 @@ import {
   FormControl,
   FormActions,
   FormButton,
-} from "../UI/Form/Form";
+} from "../../UI/Form/Form";
 
 const QuoteForm = (props) => {
   const [isFormFocused, setIsFormFocused] = useState(false);

@@ -3,10 +3,10 @@ import { QuoteItemS } from "./QuoteItemStyles";
 import { Link, useLocation } from "react-router-dom";
 
 const QuoteItem = (props) => {
-  console.log(props);
+  // console.log(props);
 
   let location = useLocation();
-  console.log(location);
+  // console.log(location);
 
   return (
     <QuoteItemS>
@@ -16,7 +16,9 @@ const QuoteItem = (props) => {
         </blockquote>
         <figcaption>{props.author}</figcaption>
       </figure>
-      <Link to={`${location.pathname}/${props.id}/comments`} className="btn">
+
+      {/* Add a nested dynamic route to the URL when an item is clicked */}
+      <Link to={`${location.pathname}/${props.id}`} className="btn">
         View Fullscreen
       </Link>
     </QuoteItemS>

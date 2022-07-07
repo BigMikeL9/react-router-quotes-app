@@ -1,6 +1,6 @@
 import React from "react";
 
-import QuoteList from "../components/quotes/QuoteList";
+import QuoteList from "../components/quotes/QuoteList/QuoteList";
 
 const DUMMY_QUOTES = [
   { id: "q1", author: "Jojo", text: "The Warldooo" },
