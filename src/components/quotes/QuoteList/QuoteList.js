@@ -37,11 +37,21 @@ const QuoteList = (props) => {
   // -- change URL search query param to 'ascending' or 'descending'
   const changeSortHandler = () => {
     // -- 'history.push()' RE-RENDERS the component. So 'isSortAscending' will get re-evaluated everytime we click the sort button.
-    history.push(
-      `${location.pathname}?sort=${
-        isSortAscending ? "descending" : "ascending"
-      }`
-    );
+
+    // -- 🟡 Passing a STRING to the 'push()' as argument for URL destination
+    // history.push(
+    //   `${location.pathname}?sort=${
+    //     isSortAscending ? "descending" : "ascending"
+    //   }`
+    // );
+
+    // -- 🟠 Another way --> Passing an OBJECT to the 'push()' method
+    history.push({
+      pathname: location.pathname,
+      search: `?sort=${isSortAscending ? "descending" : "ascending"}`,
+    });
+
+    // 👆 Can use this way for React Router Link, NavLink as well 👆
   };
 
   return (

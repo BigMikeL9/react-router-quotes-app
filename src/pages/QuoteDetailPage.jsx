@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Route, useLocation } from "react-router-dom";
+import { useParams, Route, useLocation, useRouteMatch } from "react-router-dom";
 
 import Comments from "../components/comments/Comments";
 import HighlightedQuote from "../components/quotes/HighlightedQuote/HighlightedQuote";
@@ -19,9 +19,11 @@ const DUMMY_QUOTES = [
 const QuoteDetailPage = () => {
   const params = useParams();
   const location = useLocation();
+  const match = useRouteMatch();
 
   console.log(params);
   console.log(location);
+  console.log(match);
 
   // ---------
   // Get the quote using the dynamic path in the URL (which contains the id of the quote) and the quotes list array.
@@ -51,7 +53,7 @@ const QuoteDetailPage = () => {
           ⭐⭐
       */}
 
-      <Route path={`/quotes/${params.quoteId}`} exact>
+      <Route path={`${match.path}`} exact>
         <ContainerCenter>
           <LinkS to={`${location.pathname}/comments`}>Load Comments</LinkS>
         </ContainerCenter>
@@ -60,16 +62,25 @@ const QuoteDetailPage = () => {
       {/* ---------------- */}
       {/*  Nested Route 👇
 
-      This means for a particular quote with a quoteId we are looking for its comments. 
+      This means that we this route 👇 will open the comments page for a particular quote
 
       Path can also be like this, but below path is the recommended way 
+      
                                  👇👇👇
       <Route path={`/quotes/${params.quoteId}/comments`} exact>
         <Comments />
       </Route>
+
+      ---- 🌟 NOTE -> prefered way. Same as whats shown below but wont update if we change '/quotes' to '/quote' for instance in the main Route in 'App.js'. ----
+
+      <Route path={`/quotes/:quoteId/comments`} exact>
+        <Comments />
+      </Route>
+
+      USE BELOW 👇👇👇
       
       */}
-      <Route path={`/quotes/:quoteId/comments`} exact>
+      <Route path={`${match.path}/comments`} exact>
         <Comments />
       </Route>
     </div>
