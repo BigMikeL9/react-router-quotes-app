@@ -3,10 +3,7 @@ import { QuoteItemS } from "./QuoteItemStyles";
 import { Link, useLocation } from "react-router-dom";
 
 const QuoteItem = (props) => {
-  // console.log(props);
-
   let location = useLocation();
-  // console.log(location);
 
   return (
     <QuoteItemS>

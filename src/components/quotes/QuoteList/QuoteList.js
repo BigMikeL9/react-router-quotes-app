@@ -24,14 +24,11 @@ const QuoteList = (props) => {
       if (quoteA.id > quoteB.id) return 1;
       if (quoteA.id < quoteB.id) return -1;
     });
-
-    console.log(quotes);
   } else {
     quotes = props.quotes.sort((quoteA, quoteB) => {
       if (quoteA.id > quoteB.id) return -1;
       if (quoteA.id < quoteB.id) return 1;
     });
-    console.log(quotes);
   }
 
   // -- change URL search query param to 'ascending' or 'descending'

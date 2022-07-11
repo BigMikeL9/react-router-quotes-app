@@ -1,35 +1,63 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, Route, useLocation, useRouteMatch } from "react-router-dom";
+import useHttp from "../hooks/useHttp";
+import { getSingleQuote } from "../api/api";
 
 import Comments from "../components/comments/Comments";
 import HighlightedQuote from "../components/quotes/HighlightedQuote/HighlightedQuote";
 import { LinkS } from "../components/UI/Link/LinkS";
 import { ContainerCenter } from "../components/UI/ContainerCenter/ContainerCenter";
+import LoadingSpinner from "../components/UI/LoadingSpinner/LoadingSpinner";
 
-const DUMMY_QUOTES = [
-  { id: "q1", author: "Jojo", text: "The Warldooo" },
+// const DUMMY_QUOTES = [
+//   { id: "q1", author: "Jojo", text: "The Warldooo" },
 
-  { id: "q2", author: "Onechaa", text: "Kom ena say" },
+//   { id: "q2", author: "Onechaa", text: "Kom ena say" },
 
-  { id: "q3", author: "Zoro", text: "Onegeryy " },
+//   { id: "q3", author: "Zoro", text: "Onegeryy " },
 
-  { id: "q4", author: "Tanjero", text: "Nandaato" },
-];
+//   { id: "q4", author: "Tanjero", text: "Nandaato" },
+// ];
 
 const QuoteDetailPage = () => {
   const params = useParams();
   const location = useLocation();
   const match = useRouteMatch();
 
-  console.log(params);
-  console.log(location);
-  console.log(match);
+  // ⭐ always destructure whatever property we need as a dependency for 'useEffect()' hook
+  const { quoteId } = params;
+
+  const {
+    sendRequest,
+    status,
+    data: fetchedQuote,
+    error,
+  } = useHttp(getSingleQuote, true);
+
+  useEffect(() => {
+    sendRequest(quoteId);
+  }, [sendRequest, quoteId]);
 
   // ---------
   // Get the quote using the dynamic path in the URL (which contains the id of the quote) and the quotes list array.
-  const quote = DUMMY_QUOTES.find(
-    (quoteData) => quoteData.id === params.quoteId
-  );
+  // const quote = DUMMY_QUOTES.find(
+  //   (quoteData) => quoteData.id === params.quoteId
+  // );
+
+  // -------------
+  //  while fetching quotes form database
+  if (status === "pending") {
+    return (
+      <ContainerCenter>
+        <LoadingSpinner />
+      </ContainerCenter>
+    );
+  }
+
+  // -------------
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   // ---------
   /* -- Fallback where if we don't find the quote using its 'id'. 
@@ -37,14 +65,15 @@ const QuoteDetailPage = () => {
           - Or user manually entered a 'quoteId' in the URL that doesn't exist
       Then display a message
   */
-  if (!quote) {
+  if (!fetchedQuote.text) {
     return <p>Quote Not Found! 😭</p>;
   }
+
   // ---------
 
   return (
     <div>
-      <HighlightedQuote author={quote.author} text={quote.text} />
+      <HighlightedQuote author={fetchedQuote.author} text={fetchedQuote.text} />
 
       {/* ---------------- */}
       {/* ⭐⭐
@@ -81,7 +110,7 @@ const QuoteDetailPage = () => {
       
       */}
       <Route path={`${match.path}/comments`} exact>
-        <Comments />
+        <Comments quoteId={params.quoteId} />
       </Route>
     </div>
   );

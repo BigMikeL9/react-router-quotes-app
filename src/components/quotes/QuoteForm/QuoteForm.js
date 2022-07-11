@@ -18,15 +18,18 @@ const QuoteForm = (props) => {
   const authorInputRef = useRef();
   const textInputRef = useRef();
 
+  // ------------
   const formFocusHandler = () => {
     setIsFormFocused(true);
   };
 
+  // ------------
   const buttonClickHandler = () => {
     //  we don't add this 👇 in 'submitFormHandler()' function because it would be too late and the Prompt will render.
     setIsFormFocused(false);
   };
 
+  // ------------
   function submitFormHandler(event) {
     event.preventDefault();
 
@@ -37,6 +40,7 @@ const QuoteForm = (props) => {
     props.onAddQuote({ author: enteredAuthor, text: enteredText });
   }
 
+  // ------------
   return (
     <>
       <Prompt
@@ -45,6 +49,7 @@ const QuoteForm = (props) => {
           `Are you sure you want to leave? All entered data will be lost. You will go to page with this '${location.pathname}' page`
         }
       />
+
       <Card>
         <Form onFocus={formFocusHandler} onSubmit={submitFormHandler}>
           {props.isLoading && (
